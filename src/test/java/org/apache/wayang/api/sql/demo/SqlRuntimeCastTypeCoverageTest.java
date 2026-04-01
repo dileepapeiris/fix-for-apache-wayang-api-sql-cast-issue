@@ -26,4 +26,18 @@ import org.junit.jupiter.params.provider.EnumSource;
  */
 class SqlRuntimeCastTypeCoverageTest {
 
+    /** Targets implemented in {@link SqlRuntimeCast#castValue(Object, SqlTypeName)}. */
+    static final EnumSet<SqlTypeName> SUPPORTED_TARGETS = EnumSet.of(
+            SqlTypeName.BOOLEAN,
+            SqlTypeName.TINYINT,
+            SqlTypeName.SMALLINT,
+            SqlTypeName.INTEGER,
+            SqlTypeName.BIGINT,
+            SqlTypeName.DECIMAL,
+            SqlTypeName.FLOAT,
+            SqlTypeName.REAL,
+            SqlTypeName.DOUBLE,
+            SqlTypeName.CHAR,
+            SqlTypeName.VARCHAR);
+
 }

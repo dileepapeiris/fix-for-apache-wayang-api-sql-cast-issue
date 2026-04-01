@@ -35,5 +35,11 @@ public final class SqlCastFilterDemo {
         final RexNode castToVarchar = rexBuilder.makeCast(varcharType, column);
         final RexNode literal = rexBuilder.makeLiteral("1", varcharType, false);
         final RexNode condition = rexBuilder.makeCall(SqlStdOperatorTable.EQUALS, castToVarchar, literal);
+
+        final FilterPredicateImpl predicate = new FilterPredicateImpl(condition);
+
+        System.out.println("CAST(int_col AS VARCHAR) = '1'");
+        System.out.println("  row (1,) -> " + predicate.test(new Record(1)));
+        System.out.println("  row (2,) -> " + predicate.test(new Record(2)));
     }
 }

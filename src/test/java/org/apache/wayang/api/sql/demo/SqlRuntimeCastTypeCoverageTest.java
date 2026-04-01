@@ -18,3 +18,12 @@ import org.apache.wayang.api.sql.calcite.converter.functions.SqlRuntimeCast;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+
+/**
+ * Documents which {@link SqlTypeName} targets {@link SqlRuntimeCast} handles today. Every enum constant
+ * must appear in either {@link #SUPPORTED_TARGETS} or {@link #UNSUPPORTED_TARGETS}; otherwise this
+ * test fails after Calcite adds a new type name, prompting an update to the cast implementation and docs.
+ */
+class SqlRuntimeCastTypeCoverageTest {
+
+}

@@ -17,3 +17,23 @@ import org.apache.wayang.api.sql.calcite.converter.functions.FilterPredicateImpl
 import org.apache.wayang.basic.data.Record;
 import org.junit.jupiter.api.Test;
 
+class SqlCastFilterDemoTest {
+
+    @Test
+    void filterPredicateMatchesCastIntToVarcharEqualsLiteral() {
+        final JavaTypeFactoryImpl typeFactory = new JavaTypeFactoryImpl();
+        final RexBuilder rexBuilder = new RexBuilder(typeFactory);
+        final RelDataType intType = typeFactory.createSqlType(SqlTypeName.INTEGER);
+        final RelDataType varcharType = typeFactory.createSqlType(SqlTypeName.VARCHAR, 255);
+
+        final RexNode column = rexBuilder.makeInputRef(intType, 0);
+        final RexNode castToVarchar = rexBuilder.makeCast(varcharType, column);
+        final RexNode literal = rexBuilder.makeLiteral("1", varcharType, false);
+        final RexNode condition = rexBuilder.makeCall(SqlStdOperatorTable.EQUALS, castToVarchar, literal);
+
+        final FilterPredicateImpl predicate = new FilterPredicateImpl(condition);
+
+        assertTrue(predicate.test(new Record(1)));
+        assertFalse(predicate.test(new Record(2)));
+    }
+}

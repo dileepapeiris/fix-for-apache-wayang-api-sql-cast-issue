@@ -72,4 +72,27 @@ class SqlRuntimeCastTypeCoverageTest {
                 () -> SqlRuntimeCast.castValue("1", target));
     }
 
+    private static Object canonicalInputFor(final SqlTypeName target) {
+        switch (target) {
+            case BOOLEAN:
+                return "TRUE";
+            case TINYINT:
+            case SMALLINT:
+            case INTEGER:
+            case BIGINT:
+                return "1";
+            case DECIMAL:
+                return "1.0";
+            case FLOAT:
+            case REAL:
+            case DOUBLE:
+                return "1.5";
+            case CHAR:
+            case VARCHAR:
+                return "x";
+            default:
+                throw new IllegalArgumentException(target.name());
+        }
+    }
+
 }

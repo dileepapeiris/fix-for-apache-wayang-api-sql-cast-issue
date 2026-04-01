@@ -53,4 +53,13 @@ class SqlRuntimeCastTypeCoverageTest {
         assertTrue(SUPPORTED_TARGETS.stream().noneMatch(UNSUPPORTED_TARGETS::contains));
     }
 
+    @ParameterizedTest
+    @EnumSource(value = SqlTypeName.class, mode = EnumSource.Mode.INCLUDE, names = {
+            "BOOLEAN", "TINYINT", "SMALLINT", "INTEGER", "BIGINT", "DECIMAL",
+            "FLOAT", "REAL", "DOUBLE", "CHAR", "VARCHAR"
+    })
+    void supportedTargetAcceptsCanonicalStringInput(final SqlTypeName target) {
+        assertDoesNotThrow(() -> SqlRuntimeCast.castValue(canonicalInputFor(target), target));
+    }
+
 }

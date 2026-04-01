@@ -95,4 +95,9 @@ class SqlRuntimeCastTypeCoverageTest {
         }
     }
 
+    @Test
+    void decimalCastProducesBigDecimal() {
+        final Object out = SqlRuntimeCast.castValue("3.25", SqlTypeName.DECIMAL);
+        assertTrue(out instanceof BigDecimal);
+    }
 }

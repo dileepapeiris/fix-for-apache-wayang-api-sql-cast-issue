@@ -40,4 +40,17 @@ class SqlRuntimeCastTypeCoverageTest {
             SqlTypeName.CHAR,
             SqlTypeName.VARCHAR);
 
+    private static final EnumSet<SqlTypeName> UNSUPPORTED_TARGETS = EnumSet.complementOf(SUPPORTED_TARGETS);
+
+    @Test
+    void everySqlTypeNameIsClassifiedAsSupportedOrUnsupported() {
+        final EnumSet<SqlTypeName> all = EnumSet.allOf(SqlTypeName.class);
+        final EnumSet<SqlTypeName> union = EnumSet.copyOf(SUPPORTED_TARGETS);
+        union.addAll(UNSUPPORTED_TARGETS);
+        assertTrue(union.containsAll(all),
+                "Missing classification for: "
+                        + all.stream().filter(t -> !union.contains(t)).collect(Collectors.toList()));
+        assertTrue(SUPPORTED_TARGETS.stream().noneMatch(UNSUPPORTED_TARGETS::contains));
+    }
+
 }

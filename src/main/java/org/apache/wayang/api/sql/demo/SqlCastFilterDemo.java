@@ -19,4 +19,12 @@ import org.apache.wayang.basic.data.Record;
  * {@code mvn -pl wayang-api/wayang-api-sql-cast-demo exec:java}
  */
 public final class SqlCastFilterDemo {
+
+    private SqlCastFilterDemo() {}
+
+    /**
+     * @param args unused
+     */
+    public static void main(final String[] args) {
+    }
 }
